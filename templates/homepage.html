@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Side Navigation Bar</title>
+    <title>Student DataBase</title>
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='css/home-style.css') }}"
+      href="static/css/home-style.css" 
     />
     <link
       href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
@@ -31,18 +31,19 @@
           </li>
           <li>
             <a href="/marksComparison"
-              ><i class="bx bxs-chart"></i><span>marks comparison</span></a
+              ><i class="bx bxs-chart"></i><span>Marks Comparison</span></a
             >
           </li>
 
           <li>
             <a href="/predictor"
               ><i class="bx bxs-analyse"></i
-              ><span>Performance predictor</span></a
+              ><span>Performance Predictor</span></a
             >
           </li>
         </ul>
-        <button class="btn-logout">
+        <!-- Updated logout button -->
+        <button class="btn-logout" onclick="logout()">
           <i class="bx bx-log-out"></i>
           <span>Logout</span>
         </button>
@@ -55,7 +56,7 @@
         <div class="dashboard-cards">
           <div class="card">
             <h3>Total Students</h3>
-            <p>500 Students</p>
+            <p>40 Students</p>
           </div>
           <div class="card">
             <h3>Average Performance</h3>
@@ -68,23 +69,11 @@
         </div>
       </div>
     </div>
+
     <script>
-      function login() {
-        const username = document.getElementById("username").value;
-        const password = document.getElementById("password").value;
-
-        // Default credentials
-        const defaultUsername = "admin";
-        const defaultPassword = "admin123";
-
-        if (username === defaultUsername && password === defaultPassword) {
-          // Redirect to home page
-          window.location.href = "home.html";
-        } else {
-          // Display error message
-          document.getElementById("error-message").textContent =
-            "Wrong username or password!";
-        }
+      // Updated logout function to redirect to login route
+      function logout() {
+        window.location.href = "/login";  // Changed to route instead of static file
       }
     </script>
   </body>

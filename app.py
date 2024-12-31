@@ -1,15 +1,31 @@
 import os
-from flask import Flask, request, render_template
-import numpy as np
-import pandas as pd
-from sklearn.preprocessing import StandardScaler
-from src.pipeline.predict_pipeline import CustomData, PredictPipeline
+from flask import Flask, request, render_template, redirect, url_for
 
-application = Flask(__name__)
-app = application
+app = Flask(
+    __name__,
+    static_folder="static",  # Set the static folder explicitly
+    template_folder="templates",  # Set the templates folder explicitly
+)
+
+# Default route for login
+@app.route("/", methods=["GET", "POST"])
+def login_page():
+    if request.method == "POST":
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        # Default credentials
+        if username == "admin" and password == "admin123":
+            return redirect(url_for("home_page"))  # Redirect to the homepage
+        else:
+            return render_template(
+                "login.html", error="Invalid username or password"
+            )  # Show error on login page
+
+    return render_template("login.html")
 
 
-@app.route("/", methods=["GET"])
+@app.route("/homepage", methods=["GET"])
 def home_page():
     return render_template("homepage.html")
 
@@ -20,7 +36,7 @@ def marks_page():
 
 
 @app.route("/studentData", methods=["GET"])
-def studentData_page():
+def student_data_page():
     return render_template("studentData.html")
 
 
@@ -31,7 +47,6 @@ def compare_page():
 
 @app.route("/predictor", methods=["GET", "POST"])
 def predict_datapoint():
-
     if request.method == "POST":
         gender = request.form.get("gender")
         race_ethnicity = request.form.get("ethnicity")
@@ -58,7 +73,7 @@ def predict_datapoint():
         print("After Prediction")
 
         return render_template(
-            "index.html",
+            "Predictor.html",
             results=results,
             gender=gender,
             race_ethnicity=race_ethnicity,
@@ -68,8 +83,12 @@ def predict_datapoint():
             reading_score=reading_score,
             writing_score=writing_score,
         )
-    else:
-        return render_template("index.html")
+    return render_template("Predictor.html")
+
+@app.route("/logout", methods=["GET"])
+def logout():
+    session.pop("logged_in", None)  # Clear session
+    return render_template("login.html")  # Redirect to login page
 
 
 if __name__ == "__main__":
