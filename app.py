@@ -1,11 +1,12 @@
 import os
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, session
 
 app = Flask(
     __name__,
     static_folder="static",  # Set the static folder explicitly
     template_folder="templates",  # Set the templates folder explicitly
 )
+app.secret_key = 'your_secret_key_here'  # Added secret key for session management
 
 # Default route for login
 @app.route("/", methods=["GET", "POST"])
@@ -16,6 +17,7 @@ def login_page():
 
         # Default credentials
         if username == "admin" and password == "admin123":
+            session['logged_in'] = True  # Set session
             return redirect(url_for("home_page"))  # Redirect to the homepage
         else:
             return render_template(
@@ -85,10 +87,11 @@ def predict_datapoint():
         )
     return render_template("Predictor.html")
 
+
 @app.route("/logout", methods=["GET"])
 def logout():
     session.pop("logged_in", None)  # Clear session
-    return render_template("login.html")  # Redirect to login page
+    return redirect(url_for('login_page'))  # Redirect to login page
 
 
 if __name__ == "__main__":
