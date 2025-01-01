@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -125,11 +124,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Senior marks data will be inserted here via JavaScript -->
                     </tbody>
                 </table>
-                <div class="average-container" id="seniors-average">
-                </div>
             </div>
 
             <div class="table-container">
@@ -145,11 +141,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Junior marks data will be inserted here via JavaScript -->
                     </tbody>
                 </table>
-                <div class="average-container" id="juniors-average">
-                </div>
             </div>
         </div>
 
@@ -158,25 +151,76 @@
             <div class="calculator-inputs">
                 <div class="calculator-item">
                     <label for="internal1-input">Internal 1</label>
-                    <input type="number" id="internal1-input" min="0" max="100">
+                    <input type="number" id="internal1-input" min="0" max="50">
                 </div>
                 <div class="calculator-item">
                     <label for="internal2-input">Internal 2</label>
-                    <input type="number" id="internal2-input" min="0" max="100">
+                    <input type="number" id="internal2-input" min="0" max="50">
                 </div>
                 <div class="calculator-item">
                     <label for="internal3-input">Internal 3</label>
-                    <input type="number" id="internal3-input" min="0" max="100">
+                    <input type="number" id="internal3-input" min="0" max="50">
                 </div>
                 <button id="calculate-average-btn">Calculate Average</button>
             </div>
-            <div id="average-result" class="average-result">
-                <!-- Average result will be displayed here -->
-            </div>
+            <div id="average-result" class="average-result"></div>
         </div>
     </div>
 
     <script>
+        // CSV Data
+        const CS_SENIORS = [
+            { USN: "CS001", Name: "Aarav Patel", "Internal 1": 45, "Internal 2": 42, "Internal 3": 44 },
+            { USN: "CS002", Name: "Priya Sharma", "Internal 1": 43, "Internal 2": 46, "Internal 3": 41 },
+            { USN: "CS003", Name: "Rohan Gupta", "Internal 1": 40, "Internal 2": 39, "Internal 3": 45 },
+            { USN: "CS004", Name: "Neha Reddy", "Internal 1": 47, "Internal 2": 43, "Internal 3": 40 },
+            { USN: "CS005", Name: "Siddharth Malhotra", "Internal 1": 42, "Internal 2": 45, "Internal 3": 43 },
+            { USN: "CS006", Name: "Aisha Khan", "Internal 1": 44, "Internal 2": 41, "Internal 3": 46 },
+            { USN: "CS007", Name: "Vikram Singh", "Internal 1": 39, "Internal 2": 44, "Internal 3": 42 },
+            { USN: "CS008", Name: "Divya Nair", "Internal 1": 46, "Internal 2": 40, "Internal 3": 39 },
+            { USN: "CS009", Name: "Arjun Mehta", "Internal 1": 41, "Internal 2": 47, "Internal 3": 44 },
+            { USN: "CS010", Name: "Shruti Desai", "Internal 1": 43, "Internal 2": 38, "Internal 3": 45 }
+        ];
+
+        const CS_JUNIORS = [
+            { USN: "CS101", Name: "Aryan Sharma", "Internal 1": 38, "Internal 2": 41, "Internal 3": 39 },
+            { USN: "CS102", Name: "Ritika Patel", "Internal 1": 42, "Internal 2": 37, "Internal 3": 44 },
+            { USN: "CS103", Name: "Vivek Mishra", "Internal 1": 40, "Internal 2": 43, "Internal 3": 41 },
+            { USN: "CS104", Name: "Shreya Iyer", "Internal 1": 45, "Internal 2": 39, "Internal 3": 42 },
+            { USN: "CS105", Name: "Karan Desai", "Internal 1": 37, "Internal 2": 45, "Internal 3": 40 },
+            { USN: "CS106", Name: "Nisha Reddy", "Internal 1": 43, "Internal 2": 42, "Internal 3": 38 },
+            { USN: "CS107", Name: "Roshan Kumar", "Internal 1": 41, "Internal 2": 40, "Internal 3": 45 },
+            { USN: "CS108", Name: "Anjali Singh", "Internal 1": 39, "Internal 2": 44, "Internal 3": 37 },
+            { USN: "CS109", Name: "Mihir Joshi", "Internal 1": 44, "Internal 2": 38, "Internal 3": 43 },
+            { USN: "CS110", Name: "Zara Khan", "Internal 1": 42, "Internal 2": 41, "Internal 3": 39 }
+        ];
+
+        const EC_SENIORS = [
+            { USN: "EC001", Name: "Rahul Krishnan", "Internal 1": 42, "Internal 2": 38, "Internal 3": 45 },
+            { USN: "EC002", Name: "Anjali Menon", "Internal 1": 45, "Internal 2": 41, "Internal 3": 43 },
+            { USN: "EC003", Name: "Karthik Raman", "Internal 1": 39, "Internal 2": 44, "Internal 3": 40 },
+            { USN: "EC004", Name: "Meera Pillai", "Internal 1": 43, "Internal 2": 37, "Internal 3": 42 },
+            { USN: "EC005", Name: "Vishal Nambiar", "Internal 1": 41, "Internal 2": 45, "Internal 3": 39 },
+            { USN: "EC006", Name: "Kavya Gopinath", "Internal 1": 44, "Internal 2": 40, "Internal 3": 44 },
+            { USN: "EC007", Name: "Abhinav Kumar", "Internal 1": 37, "Internal 2": 42, "Internal 3": 41 },
+            { USN: "EC008", Name: "Deepa Sankar", "Internal 1": 40, "Internal 2": 39, "Internal 3": 46 },
+            { USN: "EC009", Name: "Rajesh Narayanan", "Internal 1": 46, "Internal 2": 43, "Internal 3": 38 },
+            { USN: "EC010", Name: "Swathi Lakshmi", "Internal 1": 38, "Internal 2": 45, "Internal 3": 42 }
+        ];
+
+        const EC_JUNIORS = [
+            { USN: "EC101", Name: "Aditya Verma", "Internal 1": 40, "Internal 2": 43, "Internal 3": 39 },
+            { USN: "EC102", Name: "Priyanka Nair", "Internal 1": 42, "Internal 2": 38, "Internal 3": 45 },
+            { USN: "EC103", Name: "Rohit Malhotra", "Internal 1": 37, "Internal 2": 41, "Internal 3": 42 },
+            { USN: "EC104", Name: "Divya Menon", "Internal 1": 44, "Internal 2": 39, "Internal 3": 40 },
+            { USN: "EC105", Name: "Sanjay Pillai", "Internal 1": 41, "Internal 2": 45, "Internal 3": 38 },
+            { USN: "EC106", Name: "Lakshmi Krishnan", "Internal 1": 39, "Internal 2": 42, "Internal 3": 44 },
+            { USN: "EC107", Name: "Vikram Raman", "Internal 1": 45, "Internal 2": 40, "Internal 3": 37 },
+            { USN: "EC108", Name: "Neha Bose", "Internal 1": 38, "Internal 2": 44, "Internal 3": 41 },
+            { USN: "EC109", Name: "Kartik Subramaniam", "Internal 1": 43, "Internal 2": 37, "Internal 3": 45 },
+            { USN: "EC110", Name: "Meera Gopalan", "Internal 1": 42, "Internal 2": 41, "Internal 3": 39 }
+        ];
+
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('calculate-average-btn').addEventListener('click', function () {
                 const internal1 = parseFloat(document.getElementById('internal1-input').value);
@@ -192,126 +236,42 @@
                 document.getElementById('average-result').textContent = `Average: ${average.toFixed(2)}`;
             });
 
-            document.getElementById('select-button').addEventListener('click', function (event) {
-                event.preventDefault();
-
+            document.getElementById('select-button').addEventListener('click', function() {
                 const department = document.getElementById('department-select').value;
-                if (!department) {
-                    alert("Please select a Department.");
-                    return;
-                }
+                let seniorsData, juniorsData;
 
-                // Updated file paths based on department selection
-                let seniorFilePath, juniorFilePath;
-                
                 if (department === "Computer Science") {
-                    seniorFilePath = "C:/Users/Shrav/Desktop/FY Project/static/data/CS_Seniors Marks.csv";
-                    juniorFilePath = "C:/Users/Shrav/Desktop/FY Project/static/data/CS_Juniors Marks.csv";
-                } else if (department === "Electronics and Communication") {
-                    seniorFilePath = "C:/Users/Shrav/Desktop/FY Project/static/data/EC_Seniors Marks.csv";
-                    juniorFilePath = "C:/Users/Shrav/Desktop/FY Project/static/data/EC_Juniors Marks.csv";
+                    seniorsData = CS_SENIORS;
+                    juniorsData = CS_JUNIORS;
+                } else {
+                    seniorsData = EC_SENIORS;
+                    juniorsData = EC_JUNIORS;
                 }
 
-                // Load seniors data
-                fetch(seniorFilePath)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch seniors file: ${response.status} - ${response.statusText}`);
-                        }
-                        return response.text();
-                    })
-                    .then(csvData => {
-                        const seniors = parseCSV(csvData);
-                        const seniorAvg = calculateAverage(seniors);
-                        document.getElementById('seniors-average').textContent = `Average Marks: ${seniorAvg}`;
-                        
-                        const seniorsTable = document.getElementById('seniors-table').getElementsByTagName('tbody')[0];
-                        seniorsTable.innerHTML = '';
-                        seniors.forEach(student => {
-                            const row = seniorsTable.insertRow();
-                            row.insertCell(0).textContent = student.USN;
-                            row.insertCell(1).textContent = student.Name;
-                            row.insertCell(2).textContent = student['Internal 1'];
-                            row.insertCell(3).textContent = student['Internal 2'];
-                            row.insertCell(4).textContent = student['Internal 3'];
-                        });
-                    })
-                    .catch(error => {
-                        console.error("Error loading seniors data:", error);
-                        alert("Error loading seniors data. Please check the file path.");
-                    });
+                // Update seniors table
+                const seniorsTable = document.getElementById('seniors-table').getElementsByTagName('tbody')[0];
+                seniorsTable.innerHTML = '';
+                seniorsData.forEach(student => {
+                    const row = seniorsTable.insertRow();
+                    row.insertCell(0).textContent = student.USN;
+                    row.insertCell(1).textContent = student.Name;
+                    row.insertCell(2).textContent = student["Internal 1"];
+                    row.insertCell(3).textContent = student["Internal 2"];
+                    row.insertCell(4).textContent = student["Internal 3"];
+                });
 
-                // Load juniors data
-                fetch(juniorFilePath)
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`Failed to fetch juniors file: ${response.status} - ${response.statusText}`);
-                        }
-                        return response.text();
-                    })
-                    .then(csvData => {
-                        const juniors = parseCSV(csvData);
-                        const juniorAvg = calculateAverage(juniors);
-                        document.getElementById('juniors-average').textContent = `Average Marks: ${juniorAvg}`;
-                        
-                        const juniorsTable = document.getElementById('juniors-table').getElementsByTagName('tbody')[0];
-                        juniorsTable.innerHTML = '';
-                        juniors.forEach(student => {
-                            const row = juniorsTable.insertRow();
-                            row.insertCell(0).textContent = student.USN;
-                            row.insertCell(1).textContent = student.Name;
-                            row.insertCell(2).textContent = student['Internal 1'];
-                            row.insertCell(3).textContent = student['Internal 2'];
-                            row.insertCell(4).textContent = student['Internal 3'];
-                        });
-                    })
-                    .catch(error => {
-                        console.error("Error loading juniors data:", error);
-                        alert("Error loading juniors data. Please check the file path.");
-                    });
+                // Update juniors table
+                const juniorsTable = document.getElementById('juniors-table').getElementsByTagName('tbody')[0];
+                juniorsTable.innerHTML = '';
+                juniorsData.forEach(student => {
+                    const row = juniorsTable.insertRow();
+                    row.insertCell(0).textContent = student.USN;
+                    row.insertCell(1).textContent = student.Name;
+                    row.insertCell(2).textContent = student["Internal 1"];
+                    row.insertCell(3).textContent = student["Internal 2"];
+                    row.insertCell(4).textContent = student["Internal 3"];
+                });
             });
-
-            function calculateAverage(students) {
-                if (students.length === 0) return 'N/A';
-
-                let sumInternal1 = 0;
-                let sumInternal2 = 0;
-                let sumInternal3 = 0;
-
-                for (const student of students) {
-                    sumInternal1 += parseFloat(student['Internal 1'] || 0);
-                    sumInternal2 += parseFloat(student['Internal 2'] || 0);
-                    sumInternal3 += parseFloat(student['Internal 3'] || 0);
-                }
-
-                const count = students.length;
-                const avgInternal1 = sumInternal1 / count;
-                const avgInternal2 = sumInternal2 / count;
-                const avgInternal3 = sumInternal3 / count;
-
-                if (isNaN(avgInternal1) || isNaN(avgInternal2) || isNaN(avgInternal3)) {
-                    return 'N/A';
-                }
-                return ((avgInternal1 + avgInternal2 + avgInternal3) / 3).toFixed(2);
-            }
-
-            function parseCSV(csvText) {
-                const lines = csvText.trim().split('\n');
-                if (lines.length === 0) return [];
-
-                const headers = lines[0].split(',').map(header => header.trim());
-
-                const students = [];
-                for (let i = 1; i < lines.length; i++) {
-                    const values = lines[i].split(',').map(value => value.trim());
-                    const student = {};
-                    for (let j = 0; j < headers.length; j++) {
-                        student[headers[j]] = values[j];
-                    }
-                    students.push(student);
-                }
-                return students;
-            }
         });
     </script>
 </body>
