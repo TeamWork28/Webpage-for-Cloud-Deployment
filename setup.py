@@ -20,7 +20,7 @@ def get_requirements(file_path:str)->List[str]:
 setup(
     name='student performance',
     version='0.0.1',
-    author='md-emon-hasan',
+    author='TeamWork',
     author_email='iconicemon01@gmail.com',
     packages=find_packages(),
     install_requires=get_requirements('requirements.txt')

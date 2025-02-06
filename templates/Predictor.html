@@ -12,10 +12,11 @@
 </head>
 
 <body>
+    <center>
     <div class="container animate__animated animate__fadeIn">
         <h1>Student Exam Performance Indicator</h1>
 
-        <h5 style="color: red; margin-bottom: 10px;">To get started, please enter your demographic information</h5>
+     <center><h5 style="color: red; margin-bottom: 10px;">Let's get started, Fill-Up the details below</h5></center>
 
         <form action="{{ url_for('predict_datapoint') }}" method="post">
             <div class="row">
@@ -106,6 +107,7 @@
         </div>
         {% endif %}
     </div>
+</center>
 
 
     <!-- Bootstrap JS, Popper.js, and jQuery -->
