@@ -1,0 +1,219 @@
+/* Base Styles */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #17a2b8;
+  --text-light: #f8f9fa;
+  --shadow-color: rgba(0, 0, 0, 0.9);
+  --transition-speed: 0.9s;
+}
+
+body {
+  background-image: url("https://dunesacademy.com/wp-content/uploads/2024/07/Dunes-Academy-Perodic-Schedule.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text-light);
+  font-family: "Montserrat", sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Container Styling */
+.container {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 40px;
+  border-radius: 20px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+/* Form Header Styling */
+.form-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-light);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+}
+
+.sub-title {
+  color: var(--secondary-color);
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.instruction {
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+/* Form Styling */
+.performance-form {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--text-light);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.form-label i {
+  margin-right: 8px;
+  color: var(--secondary-color);
+}
+
+.form-control {
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-light);
+  padding: 12px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(23, 162, 184, 0.3);
+  border-color: var(--secondary-color);
+}
+
+/* Button Styling */
+.submit-btn {
+  width: 100%;
+  border-radius: 30px;
+  background: linear-gradient(
+    45deg,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  border: none;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  transition: all var(--transition-speed) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 123, 255, 0.4);
+  background: linear-gradient(
+    45deg,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+}
+
+.submit-btn i {
+  margin-right: 10px;
+}
+
+/* Result Card Styling */
+.result-section .card {
+  color: black;
+  background: rgba(23, 162, 184, 0.1);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(5px);
+  transition: transform var(--transition-speed) ease;
+}
+
+.result-section .card:hover {
+  transform: translateY(-5px);
+}
+
+.result-icon {
+  font-size: 2rem;
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+}
+
+.prediction-text {
+  font-size: 1.5rem;
+  color: var(--text-light);
+}
+
+/* Footer Styling */
+.site-footer {
+  background-color: rgba(0, 0, 0, 0.9);
+  color: var(--text-light);
+  padding: 20px 0;
+  margin-top: auto;
+}
+
+.footer-content {
+  text-align: center;
+  font-size: 1rem;
+}
+
+.footer-social {
+  margin-top: 15px;
+}
+
+.social-link {
+  color: var(--text-light);
+  font-size: 1.2rem;
+  margin: 0 10px;
+  transition: color var(--transition-speed) ease;
+}
+
+.social-link:hover {
+  color: var(--secondary-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+    margin-top: 20px;
+  }
+
+  .main-title {
+    font-size: 2rem;
+  }
+
+  .sub-title {
+    font-size: 1.5rem;
+  }
+
+  .form-section {
+    margin-bottom: 20px;
+  }
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student DataBase</title>
+    <link
+      rel="stylesheet"
+      href="static/css/home-style.css" 
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav>
+        <div class="logo">
+          <h2>Student Portal</h2>
+        </div>
+        <ul>
+          <li>
+            <a href="/studentData"
+              ><i class="bx bxs-data"></i><span>Student Data</span></a
+            >
+          </li>
+          <li>
+            <a href="/marks"
+              ><i class="bx bxs-bookmarks"></i><span>Marks</span></a
+            >
+          </li>
+          <li>
+            <a href="/marksComparison"
+              ><i class="bx bxs-chart"></i><span>Marks Comparison</span></a
+            >
+          </li>
+
+          <li>
+            <a href="/predictor"
+              ><i class="bx bxs-analyse"></i
+              ><span>Performance Predictor</span></a
+            >
+          </li>
+        </ul>
+        <!-- Updated logout button -->
+        <button class="btn-logout" onclick="logout()">
+          <i class="bx bx-log-out"></i>
+          <span>Logout</span>
+        </button>
+      </nav>
+
+      <div class="main_content">
+        <div class="header">
+          <h1>Welcome to Student Database</h1>
+        </div>
+        <div class="dashboard-cards">
+          <div class="card">
+            <h3>Total Students</h3>
+            <p>40 Students</p>
+          </div>
+          <div class="card">
+            <h3>Average Performance</h3>
+            <p>85%</p>
+          </div>
+          <div class="card">
+            <h3>Recent Updates</h3>
+            <p>Last updated: Today</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Updated logout function to redirect to login route
+      function logout() {
+        window.location.href = "/logout";  // Changed to route instead of static file
+      }
+    </script>
+  </body>
+</html>

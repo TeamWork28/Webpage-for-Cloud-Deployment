@@ -1,0 +1,158 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #f4f6f9;
+  min-height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+}
+
+nav {
+  position: fixed;
+  background: linear-gradient(135deg, #2c3e50, #3498db);
+  width: 280px;
+  height: 100vh;
+  padding: 20px 0;
+  transition: all 0.3s ease;
+}
+
+nav .logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+nav .logo h2 {
+  color: white;
+  font-size: 24px;
+  padding: 20px 0;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0 20px;
+}
+
+nav ul li {
+  margin-bottom: 15px;
+}
+
+nav ul li a {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+nav ul li a i {
+  font-size: 20px;
+  margin-right: 15px;
+}
+
+nav ul li a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.btn-logout {
+  margin: 20px;
+  padding: 12px 25px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  font-size: 16px;
+}
+
+.btn-logout:hover {
+  background: #c0392b;
+}
+
+.main_content {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+  padding: 30px;
+}
+
+.header {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 36px;
+  color: #2c3e50;
+  text-align: center;
+  margin: 0;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  padding: 20px 0;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h3 {
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+  nav {
+    width: 70px;
+    padding: 15px 0;
+  }
+
+  nav .logo h2 {
+    display: none;
+  }
+
+  nav ul li a span {
+    display: none;
+  }
+
+  nav ul li a i {
+    margin: 0;
+  }
+
+  .main_content {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+  }
+
+  .btn-logout span {
+    display: none;
+  }
+}

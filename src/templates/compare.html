@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Comparison</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/comparison.css') }}">
+    <style>
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .filter-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tables-wrapper {
+            display: flex;
+            gap: 2rem;
+            justify-content: space-between;
+            margin: 2rem 0;
+        }
+
+        .table-container {
+            flex: 1;
+            min-width: 45%;
+            height: 400px; /* Added fixed height */
+            overflow-y: auto; /* Added scroll if content exceeds height */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f5f5f5;
+            position: sticky; /* Added sticky header */
+            top: 0;
+            z-index: 1;
+        }
+
+        .average-container {
+            font-weight: bold;
+            margin-top: 1rem;
+        }
+
+        .average-calculator {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .calculator-inputs {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .calculator-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        #select-button, #calculate-average-btn {
+            padding: 0.5rem 1rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #select-button:hover, #calculate-average-btn:hover {
+            background-color: #45a049;
+        }
+
+        .average-result {
+            margin-top: 1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Student Marks Comparison</h1>
+
+        <div class="filter-container">
+            <div class="filter-item">
+                <label for="department-select">Department</label>
+                <select id="department-select">
+                    <option value="Computer Science">Computer Science</option>
+                    <option value="Electronics and Communication">Electronics and Communication</option>
+                </select>
+            </div>
+            <button id="select-button">Select</button>
+        </div>
+
+        <div class="tables-wrapper">
+            <div class="table-container">
+                <h2>Seniors</h2>
+                <table id="seniors-table">
+                    <thead>
+                        <tr>
+                            <th>USN</th>
+                            <th>Name</th>
+                            <th>Internal 1</th>
+                            <th>Internal 2</th>
+                            <th>Internal 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-container">
+                <h2>Juniors</h2>
+                <table id="juniors-table">
+                    <thead>
+                        <tr>
+                            <th>USN</th>
+                            <th>Name</th>
+                            <th>Internal 1</th>
+                            <th>Internal 2</th>
+                            <th>Internal 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="average-calculator">
+            <h2>Average Marks Calculator</h2>
+            <div class="calculator-inputs">
+                <div class="calculator-item">
+                    <label for="internal1-input">Internal 1</label>
+                    <input type="number" id="internal1-input" min="0" max="50">
+                </div>
+                <div class="calculator-item">
+                    <label for="internal2-input">Internal 2</label>
+                    <input type="number" id="internal2-input" min="0" max="50">
+                </div>
+                <div class="calculator-item">
+                    <label for="internal3-input">Internal 3</label>
+                    <input type="number" id="internal3-input" min="0" max="50">
+                </div>
+                <button id="calculate-average-btn">Calculate Average</button>
+            </div>
+            <div id="average-result" class="average-result"></div>
+        </div>
+    </div>
+
+    <script>
+        // CSV Data
+        const CS_SENIORS = [
+            { USN: "CS001", Name: "Aarav Patel", "Internal 1": 45, "Internal 2": 42, "Internal 3": 44 },
+            { USN: "CS002", Name: "Priya Sharma", "Internal 1": 43, "Internal 2": 46, "Internal 3": 41 },
+            { USN: "CS003", Name: "Rohan Gupta", "Internal 1": 40, "Internal 2": 39, "Internal 3": 45 },
+            { USN: "CS004", Name: "Neha Reddy", "Internal 1": 47, "Internal 2": 43, "Internal 3": 40 },
+            { USN: "CS005", Name: "Siddharth Malhotra", "Internal 1": 42, "Internal 2": 45, "Internal 3": 43 },
+            { USN: "CS006", Name: "Aisha Khan", "Internal 1": 44, "Internal 2": 41, "Internal 3": 46 },
+            { USN: "CS007", Name: "Vikram Singh", "Internal 1": 39, "Internal 2": 44, "Internal 3": 42 },
+            { USN: "CS008", Name: "Divya Nair", "Internal 1": 46, "Internal 2": 40, "Internal 3": 39 },
+            { USN: "CS009", Name: "Arjun Mehta", "Internal 1": 41, "Internal 2": 47, "Internal 3": 44 },
+            { USN: "CS010", Name: "Shruti Desai", "Internal 1": 43, "Internal 2": 38, "Internal 3": 45 }
+        ];
+
+        const CS_JUNIORS = [
+            { USN: "CS101", Name: "Aryan Sharma", "Internal 1": 38, "Internal 2": 41, "Internal 3": 39 },
+            { USN: "CS102", Name: "Ritika Patel", "Internal 1": 42, "Internal 2": 37, "Internal 3": 44 },
+            { USN: "CS103", Name: "Vivek Mishra", "Internal 1": 40, "Internal 2": 43, "Internal 3": 41 },
+            { USN: "CS104", Name: "Shreya Iyer", "Internal 1": 45, "Internal 2": 39, "Internal 3": 42 },
+            { USN: "CS105", Name: "Karan Desai", "Internal 1": 37, "Internal 2": 45, "Internal 3": 40 },
+            { USN: "CS106", Name: "Nisha Reddy", "Internal 1": 43, "Internal 2": 42, "Internal 3": 38 },
+            { USN: "CS107", Name: "Roshan Kumar", "Internal 1": 41, "Internal 2": 40, "Internal 3": 45 },
+            { USN: "CS108", Name: "Anjali Singh", "Internal 1": 39, "Internal 2": 44, "Internal 3": 37 },
+            { USN: "CS109", Name: "Mihir Joshi", "Internal 1": 44, "Internal 2": 38, "Internal 3": 43 },
+            { USN: "CS110", Name: "Zara Khan", "Internal 1": 42, "Internal 2": 41, "Internal 3": 39 }
+        ];
+
+        const EC_SENIORS = [
+            { USN: "EC001", Name: "Rahul Krishnan", "Internal 1": 42, "Internal 2": 38, "Internal 3": 45 },
+            { USN: "EC002", Name: "Anjali Menon", "Internal 1": 45, "Internal 2": 41, "Internal 3": 43 },
+            { USN: "EC003", Name: "Karthik Raman", "Internal 1": 39, "Internal 2": 44, "Internal 3": 40 },
+            { USN: "EC004", Name: "Meera Pillai", "Internal 1": 43, "Internal 2": 37, "Internal 3": 42 },
+            { USN: "EC005", Name: "Vishal Nambiar", "Internal 1": 41, "Internal 2": 45, "Internal 3": 39 },
+            { USN: "EC006", Name: "Kavya Gopinath", "Internal 1": 44, "Internal 2": 40, "Internal 3": 44 },
+            { USN: "EC007", Name: "Abhinav Kumar", "Internal 1": 37, "Internal 2": 42, "Internal 3": 41 },
+            { USN: "EC008", Name: "Deepa Sankar", "Internal 1": 40, "Internal 2": 39, "Internal 3": 46 },
+            { USN: "EC009", Name: "Rajesh Narayanan", "Internal 1": 46, "Internal 2": 43, "Internal 3": 38 },
+            { USN: "EC010", Name: "Swathi Lakshmi", "Internal 1": 38, "Internal 2": 45, "Internal 3": 42 }
+        ];
+
+        const EC_JUNIORS = [
+            { USN: "EC101", Name: "Aditya Verma", "Internal 1": 40, "Internal 2": 43, "Internal 3": 39 },
+            { USN: "EC102", Name: "Priyanka Nair", "Internal 1": 42, "Internal 2": 38, "Internal 3": 45 },
+            { USN: "EC103", Name: "Rohit Malhotra", "Internal 1": 37, "Internal 2": 41, "Internal 3": 42 },
+            { USN: "EC104", Name: "Divya Menon", "Internal 1": 44, "Internal 2": 39, "Internal 3": 40 },
+            { USN: "EC105", Name: "Sanjay Pillai", "Internal 1": 41, "Internal 2": 45, "Internal 3": 38 },
+            { USN: "EC106", Name: "Lakshmi Krishnan", "Internal 1": 39, "Internal 2": 42, "Internal 3": 44 },
+            { USN: "EC107", Name: "Vikram Raman", "Internal 1": 45, "Internal 2": 40, "Internal 3": 37 },
+            { USN: "EC108", Name: "Neha Bose", "Internal 1": 38, "Internal 2": 44, "Internal 3": 41 },
+            { USN: "EC109", Name: "Kartik Subramaniam", "Internal 1": 43, "Internal 2": 37, "Internal 3": 45 },
+            { USN: "EC110", Name: "Meera Gopalan", "Internal 1": 42, "Internal 2": 41, "Internal 3": 39 }
+        ];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('calculate-average-btn').addEventListener('click', function () {
+                const internal1 = parseFloat(document.getElementById('internal1-input').value);
+                const internal2 = parseFloat(document.getElementById('internal2-input').value);
+                const internal3 = parseFloat(document.getElementById('internal3-input').value);
+
+                if (isNaN(internal1) || isNaN(internal2) || isNaN(internal3)) {
+                    alert("Please enter valid numbers for all Internal marks.");
+                    return;
+                }
+
+                const average = (internal1 + internal2 + internal3) / 3;
+                document.getElementById('average-result').textContent = `Average: ${average.toFixed(2)}`;
+            });
+
+            document.getElementById('select-button').addEventListener('click', function() {
+                const department = document.getElementById('department-select').value;
+                let seniorsData, juniorsData;
+
+                if (department === "Computer Science") {
+                    seniorsData = CS_SENIORS;
+                    juniorsData = CS_JUNIORS;
+                } else {
+                    seniorsData = EC_SENIORS;
+                    juniorsData = EC_JUNIORS;
+                }
+
+                // Update seniors table
+                const seniorsTable = document.getElementById('seniors-table').getElementsByTagName('tbody')[0];
+                seniorsTable.innerHTML = '';
+                seniorsData.forEach(student => {
+                    const row = seniorsTable.insertRow();
+                    row.insertCell(0).textContent = student.USN;
+                    row.insertCell(1).textContent = student.Name;
+                    row.insertCell(2).textContent = student["Internal 1"];
+                    row.insertCell(3).textContent = student["Internal 2"];
+                    row.insertCell(4).textContent = student["Internal 3"];
+                });
+
+                // Update juniors table
+                const juniorsTable = document.getElementById('juniors-table').getElementsByTagName('tbody')[0];
+                juniorsTable.innerHTML = '';
+                juniorsData.forEach(student => {
+                    const row = juniorsTable.insertRow();
+                    row.insertCell(0).textContent = student.USN;
+                    row.insertCell(1).textContent = student.Name;
+                    row.insertCell(2).textContent = student["Internal 1"];
+                    row.insertCell(3).textContent = student["Internal 2"];
+                    row.insertCell(4).textContent = student["Internal 3"];
+                });
+            });
+        });
+    </script>
+</body>
+</html>
