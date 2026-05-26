@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col-md-6 form-group animate__animated animate__fadeInRight">
-                    <label for="ethnicity">Race or Ethnicity</label>
+                    <label for="ethnicity">Class Course</label>
                     <select class="form-control" id="ethnicity" name="ethnicity" required>
                         <option value="" disabled {{ 'selected' if not race_ethnicity else '' }}>Select Ethnicity</option>
                         <option value="CSE" {{ 'selected' if race_ethnicity == 'CSE' else '' }}>CSE</option>
@@ -54,21 +54,21 @@
                 </div>
 
                 <div class="col-md-6 form-group animate__animated animate__fadeInRight">
-                    <label for="lunch">Lunch Type</label>
-                    <select class="form-control" id="lunch" name="lunch" required>
-                        <option value="" disabled {{ 'selected' if not lunch else '' }}>Select Lunch Type</option>
-                        <option value="free/reduced" {{ 'selected' if lunch == "free/reduced" else '' }}>Free/Reduced</option>
-                        <option value="standard" {{ 'selected' if lunch == "standard" else '' }}>Standard</option>
+                    <label for="Course Type">Course Type Type</label>
+                    <select class="form-control" id="Course Type" name="Course Type" required>
+                        <option value="" disabled {{ 'selected' if not Course Type else '' }}>Select Course Type Type</option>
+                        <option value="free/reduced" {{ 'selected' if Course Type == "Free" else '' }}>Free/Reduced</option>
+                        <option value="standard" {{ 'selected' if Course Type == "Standard" else '' }}>Standard</option>
                     </select>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-6 form-group animate__animated animate__fadeInLeft">
-                    <label for="test-course">Test Preparation Course</label>
+                    <label for="test-course">Test Preparation</label>
                     <select class="form-control" id="test-course" name="test_preparation_course" required>
                         <option value="" disabled {{ 'selected' if not test_preparation_course else '' }}>Select Test Course</option>
-                        <option value="none" {{ 'selected' if test_preparation_course == "none" else '' }}>None</option>
+                        <option value="none" {{ 'selected' if test_preparation_course == "incompleted" else '' }}>None</option>
                         <option value="completed" {{ 'selected' if test_preparation_course == "completed" else '' }}>Completed</option>
                     </select>
                 </div>

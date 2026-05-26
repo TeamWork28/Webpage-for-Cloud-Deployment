@@ -36,7 +36,6 @@ This repository demonstrates a machine learning project focused on predicting st
 - **Model Evaluation:** Evaluating the performance of different regression models.
 - **Deployment:** Serving the model using Flask and deploying it as a web service.
 - **Docker:** Containerizing the application to ensure consistency across different environments.
-- **CI/CD:** Automating testing and deployment using GitHub Actions.
 
 ---
 
@@ -47,7 +46,7 @@ To start with this project, follow these instructions:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/Md-Emon-Hasan/ML-Project-Student-Performance-Prediction-using-Docker-and-CI-CD-Pipeline.git
+   git clone https://github.com/TeamWork28/Webpage-for-Cloud-Deployment.git
    ```
 
 2. **Navigate to the project directory:**
@@ -107,16 +106,6 @@ To containerize the application, follow these steps:
    http://127.0.0.1:5000/
    ```
 
-### CI/CD with GitHub Actions
-
-The project employs GitHub Actions for continuous integration and deployment. The workflow includes:
-
-- **Linting and Testing:** Ensures code quality through automated linting and testing.
-- **Build and Deploy:** Builds the Docker image and deploys the app to a cloud platform.
-
-Check out the workflow file in `.github/workflows/ci-cd.yml`.
-
----
 
 ## 🌟 Best Practices
 
@@ -139,21 +128,6 @@ A: Refer to the [Contributing](#contributing) section for contribution guideline
 
 **Q: Can this application be deployed on other cloud platforms?**
 A: Yes, the Dockerized app can be deployed on other platforms like Heroku, AWS, or Azure.
-
----
-
-## 🛠️ Troubleshooting
-
-Common issues and their solutions:
-
-- **Issue: Docker Container Not Running**
-  *Solution:* Ensure Docker is installed and the image was built successfully.
-
-- **Issue: CI/CD Pipeline Errors**
-  *Solution:* Review the GitHub Actions logs for error details and ensure all tests pass before committing.
-
-- **Issue: Poor Model Performance**
-  *Solution:* Check data preprocessing steps and consider tuning the model’s hyperparameters.
 
 ---
 
@@ -224,22 +198,3 @@ This repository was created to showcase the end-to-end process of building, cont
 
 ---
 
-## 📝 License
-
-This repository is licensed under the [MIT License](https://opensource.org/licenses/MIT). See the [LICENSE](LICENSE) file for more details.
-
----
-
-## 📬 Contact
-
-- **Email:** [iconicemon01@gmail.com](mailto:iconicemon01@gmail.com)
-- **WhatsApp:** [+8801834363533](https://wa.me/8801834363533)
-- **GitHub:** [Md-Emon-Hasan](https://github.com/Md-Emon-Hasan)
-- **LinkedIn:** [Md Emon Hasan](https://www.linkedin.com/in/md-emon-hasan)
-- **Facebook:** [Md Emon Hasan](https://www.facebook.com/mdemon.hasan2001/)
-
----
-
-Feel free to customize this template further based on your project specifics and updates.
-
----
