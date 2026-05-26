@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Exam Performance Indicator</title>
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
@@ -54,11 +52,11 @@
                 </div>
 
                 <div class="col-md-6 form-group animate__animated animate__fadeInRight">
-                    <label for="Course Type">Course Type Type</label>
-                    <select class="form-control" id="Course Type" name="Course Type" required>
-                        <option value="" disabled {{ 'selected' if not Course Type else '' }}>Select Course Type Type</option>
-                        <option value="free/reduced" {{ 'selected' if Course Type == "Free" else '' }}>Free/Reduced</option>
-                        <option value="standard" {{ 'selected' if Course Type == "Standard" else '' }}>Standard</option>
+                    <label for="course_type">Course Type</label>
+                    <select class="form-control" id="course_type" name="course_type" required>
+                        <option value="" disabled {{ 'selected' if not course_type else '' }}>Select Course Type</option>
+                        <option value="free/reduced" {{ 'selected' if course_type == "Free" else '' }}>Free/Reduced</option>
+                        <option value="standard" {{ 'selected' if course_type == "Standard" else '' }}>Standard</option>
                     </select>
                 </div>
             </div>
@@ -92,7 +90,6 @@
         </form>
 
         {% if results %}
-        <!-- Placeholder for the result card -->
         <div class="card animate__animated animate__slideInUp mt-5">
             <div class="card-body" style="color: black;">
                 Prediction Result: <span id="prediction-result">{{ results }}</span>
@@ -101,7 +98,6 @@
         {% endif %}
 
         {% if error %}
-        <!-- Display any error message -->
         <div class="alert alert-danger animate__animated animate__slideInUp mt-3">
             {{ error }}
         </div>
@@ -109,11 +105,8 @@
     </div>
 </center>
 
-
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
