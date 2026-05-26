@@ -48,33 +48,20 @@ To start with this project, follow these instructions:
    ```bash
    git clone https://github.com/TeamWork28/Webpage-for-Cloud-Deployment.git
    ```
-
-2. **Navigate to the project directory:**
-
-   ```bash
-   cd ML-Project-Student-Performance-Prediction-using-Docker-and-CI-CD-Pipeline
-   ```
-
-3. **Create and activate a virtual environment:**
-
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
-
-4. **Install the dependencies:**
+   
+2. **Install the dependencies:**
 
    ```bash
    pip install -r requirements.txt
    ```
 
-5. **Run the application locally:**
+3. **Run the application locally:**
 
    ```bash
    python app.py
    ```
 
-6. **Visit the application in your browser:**
+4. **Visit the application in your browser:**
 
    ```
    http://127.0.0.1:5000/
