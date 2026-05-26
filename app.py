@@ -1,5 +1,7 @@
 import os
 from flask import Flask, request, render_template, redirect, url_for, session
+
+# Import pipeline classes
 from src.pipeline.predict_pipeline import PredictPipeline, CustomData
 
 app = Flask(
@@ -52,16 +54,25 @@ def compare_page():
 def predict_datapoint():
     if request.method == "POST":
         gender = request.form.get("gender")
-        race_ethnicity = request.form.get("ethnicity")
+        
+        # 1. Capture original form value ('CSE' or 'ECE')
+        original_ethnicity = request.form.get("ethnicity")
+        
+        # 2. Map CSE/ECE to matching dataset categories behind the scenes
+        if original_ethnicity == "CSE":
+            race_ethnicity = "group A"
+        elif original_ethnicity == "ECE":
+            race_ethnicity = "group B"
+        else:
+            race_ethnicity = original_ethnicity  # Fallback just in case
+
         parental_level_of_education = request.form.get("parental_level_of_education")
-        
-        # Captured from the updated HTML element name 'course_type'
         lunch = request.form.get("course_type") 
-        
         test_preparation_course = request.form.get("test_preparation_course")
         reading_score = float(request.form.get("reading_score"))
         writing_score = float(request.form.get("writing_score"))
 
+        # 3. Pass the mapped category group to CustomData
         data = CustomData(
             gender=gender,
             race_ethnicity=race_ethnicity,
@@ -82,9 +93,8 @@ def predict_datapoint():
             "Predictor.html",
             results=results,
             gender=gender,
-            race_ethnicity=race_ethnicity,
-            parental_level_of_education=parental_level_of_education,
-            course_type=lunch,  # Safely passed back matching template expectations
+            race_ethnicity=original_ethnicity, # Pass back 'CSE'/'ECE' so frontend stays selected properly
+            course_type=lunch,  
             test_preparation_course=test_preparation_course,
             reading_score=reading_score,
             writing_score=writing_score,
