@@ -2,8 +2,6 @@
 
 Welcome to the **Student Performance Prediction System** repository! This project uses machine learning to predict student performance based on various features. It leverages Docker for containerization, GitHub Actions for CI/CD access.
 
-![Capture](https://github.com/user-attachments/assets/43d3185b-f796-4d83-8179-4dad51d14153)
-
 ![Student Exam Performance Indicator](images/predictor.png)
 
 ## 📋 Contents
