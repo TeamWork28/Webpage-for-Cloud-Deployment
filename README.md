@@ -4,6 +4,9 @@ Welcome to the **Student Performance Prediction System** repository! This projec
 
 ![Capture](https://github.com/user-attachments/assets/43d3185b-f796-4d83-8179-4dad51d14153)
 
+![Uploading image.png…]()
+
+
 ## 📋 Contents
 
 - [Introduction](#introduction)
