@@ -38,11 +38,9 @@ jobs:
                         aws-region: ${{ secrets.AWS_REGION }}
                   
                   - name: ECR login
-                    run: |
-                        aws ecr get-login-password --region ${{ secrets.AWS_REGION }} 
-                        docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY_URI }}
+                    uses: aws-actions/amazon-ecr-login@v2
 
                   - name: Build and Push Docker image
                     run: |
                         docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:latest .
-                        docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest 
+                        docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
