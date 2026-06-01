@@ -47,7 +47,8 @@ jobs:
 
                   - name: Zip deployment files
                     run: |
-                      zip -r deployment.zip appspec.yml scripts/
+                      chmod +x scripts/*.sh
+                      zip -r deployment.zip ./*
 
                   - name: Upload to S3
                     run: |
