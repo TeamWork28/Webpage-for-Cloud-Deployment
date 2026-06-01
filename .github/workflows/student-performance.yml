@@ -44,3 +44,19 @@ jobs:
                     run: |
                         docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:latest .
                         docker push ${{ secrets.ECR_REPOSITORY_URI }}:latest
+
+                  - name: Zip deployment files
+                    run: |
+                      zip -r deployment.zip appspec.yml scripts/
+
+                  - name: Upload to S3
+                    run: |
+                      aws s3 cp deployment.zip s3://codedeploy-student-app-bucket/deployment.zip
+
+                  - name: Trigger CodeDeploy
+                    run: |
+                      aws deploy create-deployment \
+                        --application-name devops-learning-app \
+                        --deployment-group-name production-group \
+                        --s3-location bucket=codedeploy-student-app-bucket,key=deployment.zip,bundleType=zip \
+                        --region us-east-2
