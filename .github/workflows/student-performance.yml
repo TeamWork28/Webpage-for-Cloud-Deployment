@@ -1,0 +1,23 @@
+name: student-performance-app
+
+on:
+      push:
+            branches:
+                  - master
+
+env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      ECR_REPOSITORY_URI: ${{ secrets.ECR_REPOSITORY_URI }}
+
+
+jobs:
+      test:
+            runs-on: ubuntu-24.04
+            steps:
+                  - uses: actions/checkout@v4
+                  
+                  - name: Building Docker image
+                    run: docker build -t student-performance .
+
+                  - name: Docker image test
+                    run: docker run --rm student-performance app.py
