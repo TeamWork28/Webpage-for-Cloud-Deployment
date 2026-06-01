@@ -10,6 +10,9 @@ COPY ./requirements.txt ./
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+#Copy the entire directory files
+COPY . . 
+
 # Expose the port Flask runs on
 EXPOSE 5000
 
