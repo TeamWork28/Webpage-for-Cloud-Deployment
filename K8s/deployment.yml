@@ -15,7 +15,7 @@ spec:
       containers:
         - name: student-app
           image: usersystem5285/student-performance:latest
-          imagePullPolicy: never
+          imagePullPolicy: Never
           ports:
             - containerPort: 5000
 
