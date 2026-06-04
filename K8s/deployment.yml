@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: performance-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: student-performance
+  template:
+    metadata:
+      labels:
+        app: student-performance
+    spec:
+      containers:
+        - name: student-app
+          image: usersystem5285/student-performance:latest
+          imagePullPolicy: never
+          ports:
+            - containerPort: 5000
+
+
