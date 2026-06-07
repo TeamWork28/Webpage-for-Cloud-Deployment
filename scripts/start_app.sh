@@ -15,4 +15,6 @@ docker rm student-app || true
 docker run -d \
   --name student-app \
   -p 5000:5000 \
+  -v /var/log/flask-app.log:/var/log/flask-app.log \
   628270103657.dkr.ecr.us-east-2.amazonaws.com/student-performance-app:latest
+  
