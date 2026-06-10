@@ -1,0 +1,23 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Login to AWS ECR
+      - aws ecr get-login-password --region us-east-2 | docker login --username aws --password-stdin 628270103657.dkr.ecr.us-east-2.amazonaws.com
+  build:
+    commands:
+      - echo docker image build 
+      - docker build -t student-performance-app .
+      - docker tag student-performance-app:latest 628270103657.dkr.ecr.us-east-2.amazonaws.com/student-performance-app:latest
+  post_build:
+    commands:
+      - echo pushing image into aws ECR
+      - docker push 628270103657.dkr.ecr.us-east-2.amazonaws.com/student-performance-app:latest > imagedefinitions.json
+      - echo writing image definition file
+
+artifacts:
+  files:
+    - imagedefinitions.json
+    - appspec.yml
+    - scripts/**/*
